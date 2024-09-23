@@ -60,6 +60,7 @@ typedef enum {
     GI_VB_CLOCK_TOWER_OPENING_CONSIDER_THIS_FIRST_CYCLE,
     GI_VB_DRAW_SLIME_BODY_ITEM,
     GI_VB_ZTARGET_SPEED_CHECK,
+    GI_VB_ALLOW_EQUIP_MASK,
 } GIVanillaBehavior;
 
 typedef enum {
@@ -268,6 +269,7 @@ class GameInteractor {
     DEFINE_HOOK(OnKaleidoUpdate, (PauseContext * pauseCtx));
     DEFINE_HOOK(BeforeKaleidoDrawPage, (PauseContext * pauseCtx, u16 pauseIndex));
     DEFINE_HOOK(AfterKaleidoDrawPage, (PauseContext * pauseCtx, u16 pauseIndex));
+    DEFINE_HOOK(OnKaleidoClose, ());
     DEFINE_HOOK(OnSaveInit, (s16 fileNum));
     DEFINE_HOOK(BeforeEndOfCycleSave, ());
     DEFINE_HOOK(AfterEndOfCycleSave, ());
@@ -320,6 +322,7 @@ void GameInteractor_ExecuteOnConsoleLogoUpdate();
 void GameInteractor_ExecuteOnKaleidoUpdate(PauseContext* pauseCtx);
 void GameInteractor_ExecuteBeforeKaleidoDrawPage(PauseContext* pauseCtx, u16 pauseIndex);
 void GameInteractor_ExecuteAfterKaleidoDrawPage(PauseContext* pauseCtx, u16 pauseIndex);
+void GameInteractor_ExecuteOnKaleidoClose();
 void GameInteractor_ExecuteOnSaveInit(s16 fileNum);
 void GameInteractor_ExecuteBeforeEndOfCycleSave();
 void GameInteractor_ExecuteAfterEndOfCycleSave();
