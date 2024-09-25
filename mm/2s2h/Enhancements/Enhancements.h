@@ -7,14 +7,19 @@
 #include "Cheats/MoonJump.h"
 #include "Cheats/Infinite.h"
 #include "Dialogue/Dialogue.h"
+#include "DifficultyOptions/DisableTakkuriSteal.h"
 #include "Graphics/TextBasedClock.h"
 #include "Graphics/3DSClock.h"
 #include "Cheats/Cheats.h"
 #include "Cheats/UnbreakableRazorSword.h"
 #include "Cheats/UnrestrictedItems.h"
 #include "Cheats/TimeStop.h"
+#include "Cheats/ElegyAnywhere.h"
 #include "Cycle/EndOfCycle.h"
+#include "Cycle/BothLetterToMamaRewards.h"
+#include "Cycle/SkipScarecrowSong.h"
 #include "Equipment/SkipMagicArrowEquip.h"
+#include "Equipment/TwoHandedSwordSpinAttack.h"
 #include "Equipment/GreatFairySwordOnB.h"
 #include "Fixes/Fixes.h"
 #include "Masks/BlastMaskKeg.h"
@@ -40,6 +45,8 @@
 #include "Saving/SavingEnhancements.h"
 #include "Graphics/DisableBlackBars.h"
 #include "Modes/TimeMovesWhenYouMove.h"
+#include "Cheats/HookshotAnywhere.h"
+#include "Modes/InvisibleEnemies.h"
 
 enum AlwaysWinDoggyRaceOptions {
     ALWAYS_WIN_DOGGY_RACE_OFF,

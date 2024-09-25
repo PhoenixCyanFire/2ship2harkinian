@@ -13,6 +13,8 @@ void InitEnhancements() {
     RegisterUnbreakableRazorSword();
     RegisterUnrestrictedItems();
     RegisterTimeStopInTemples();
+    RegisterElegyAnywhere();
+    RegisterHookshotAnywhere();
 
     // Clock
     RegisterTextBasedClock();
@@ -22,12 +24,15 @@ void InitEnhancements() {
     RegisterEndOfCycleSaveHooks();
     RegisterSavingEnhancements();
     RegisterAutosave();
+    RegisterBothLetterToMamaRewards();
+    RegisterSkipScarecrowSong();
 
     // Dialogue
     RegisterFastBankSelection();
 
     // Equipment
     RegisterSkipMagicArrowEquip();
+    RegisterTwoHandedSwordSpinAttack();
     RegisterGreatFairySwordOnB();
     RegisterInstantRecall();
 
@@ -53,6 +58,7 @@ void InitEnhancements() {
     RegisterClimbSpeed();
     RegisterFastFlowerLaunch();
     RegisterInstantPutaway();
+    RegisterFierceDeityPutaway();
 
     // Songs
     RegisterEnableSunsSong();
@@ -70,6 +76,10 @@ void InitEnhancements() {
     RegisterCutscenes();
 
     // Modes
+    RegisterInvisibleEnemies();
     RegisterPlayAsKafei();
     RegisterTimeMovesWhenYouMove();
+
+    // Difficulty Options
+    RegisterDisableTakkuriSteal();
 }

@@ -153,7 +153,7 @@ void DrawBenMenu() {
     }
 }
 
-extern std::shared_ptr<Ship::GuiWindow> mInputEditorWindow;
+extern std::shared_ptr<BenInputEditorWindow> mBenInputEditorWindow;
 
 void DrawSettingsMenu() {
     if (UIWidgets::BeginMenu("Settings")) {
@@ -312,8 +312,8 @@ void DrawSettingsMenu() {
         // #region 2S2H [Todo] None of this works yet
         /*
         if (UIWidgets::BeginMenu("Controller")) { */
-        if (mInputEditorWindow) {
-            UIWidgets::WindowButton("Controller Mapping", "gWindows.InputEditor", mInputEditorWindow);
+        if (mBenInputEditorWindow) {
+            UIWidgets::WindowButton("Controller Mapping", "gWindows.InputEditor", mBenInputEditorWindow);
         }
         /*
         #ifndef __SWITCH__
@@ -468,6 +468,12 @@ void DrawEnhancementsMenu() {
                 {
                     .tooltip = "When starting a game you will be taken straight to South Clock Town as Deku Link.",
                 });
+            if (CVarGetInteger("gEnhancements.Cutscenes.SkipIntroSequence", 0)) {
+                UIWidgets::CVarCheckbox(
+                    "Skip First Cycle", "gEnhancements.Cutscenes.SkipFirstCycle",
+                    { .tooltip = "When starting a game you will be taken straight to South Clock Town as Human Link "
+                                 "with Deku Mask, Ocarina, Song of Time, and Song of Healing." });
+            }
             UIWidgets::CVarCheckbox(
                 "Skip Story Cutscenes", "gEnhancements.Cutscenes.SkipStoryCutscenes",
                 {
@@ -521,6 +527,10 @@ void DrawEnhancementsMenu() {
                 "Do not reset Time Speed", "gEnhancements.Cycle.DoNotResetTimeSpeed",
                 { .tooltip =
                       "Playing the Song Of Time will not reset the current time speed set by Inverted Song of Time." });
+            UIWidgets::CVarCheckbox(
+                "Both Letter to Mama Rewards", "gEnhancements.Cycle.BothLetterToMamaRewards",
+                { .tooltip =
+                      "Giving the Letter to Mama to either Madame Aroma or the Postman will yield both rewards." });
 
             ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(255, 255, 0, 255));
             ImGui::SeparatorText("Unstable");
@@ -567,6 +577,9 @@ void DrawEnhancementsMenu() {
                 { .tooltip =
                       "Pressing B will instantly recall the fin boomerang back to Zora Link after they are thrown." });
 
+            UIWidgets::CVarCheckbox(
+                "Two-Handed Sword Spin Attack", "gEnhancements.Equipment.TwoHandedSwordSpinAttack",
+                { .tooltip = "Enables magic spin attacks for the Fierce Deity Sword and Great Fairy's Sword." });
             ImGui::EndMenu();
         }
 
@@ -670,6 +683,11 @@ void DrawEnhancementsMenu() {
         }
 
         if (UIWidgets::BeginMenu("Modes")) {
+            if (UIWidgets::CVarCheckbox("Invisible Enemies", "gModes.InvisibleEnemies",
+                                        { .tooltip = "Enemies will appear invisible without using the Lens of Truth. "
+                                                     "Requires scene reload to take effect." })) {
+                RegisterInvisibleEnemies();
+            }
             UIWidgets::CVarCheckbox("Play As Kafei", "gModes.PlayAsKafei",
                                     { .tooltip = "Requires scene reload to take effect." });
             if (UIWidgets::CVarCheckbox("Time Moves When You Move", "gModes.TimeMovesWhenYouMove")) {
@@ -689,6 +707,8 @@ void DrawEnhancementsMenu() {
             }
             UIWidgets::CVarCheckbox("Instant Putaway", "gEnhancements.Player.InstantPutaway",
                                     { .tooltip = "Allows Link to instantly puts away held item without waiting." });
+            UIWidgets::CVarCheckbox("Fierce Deity Putaway", "gEnhancements.Player.FierceDeityPutaway",
+                                    { .tooltip = "Allows Fierce Deity Link to put away his sword." });
             ImGui::EndMenu();
         }
 
@@ -731,7 +751,20 @@ void DrawEnhancementsMenu() {
                                                  "having to play the Song of Soaring." });
             UIWidgets::CVarSliderInt("Zora Eggs For Bossa Nova", "gEnhancements.Songs.ZoraEggCount", 1, 7, 7,
                                      { .tooltip = "The number of eggs required to unlock new wave bossa nova." });
+            UIWidgets::CVarCheckbox("Skip Scarecrow Song", "gEnhancements.Playback.SkipScarecrowSong",
+                                    { .tooltip = "Pierre appears when the Ocarina is pulled out" });
+            UIWidgets::CVarCheckbox("Faster song playbacks", "gEnhancements.Playback.FastSongPlayback",
+                                    { .tooltip = "Makes song playback faster" });
 
+            ImGui::EndMenu();
+        }
+
+        if (UIWidgets::BeginMenu("Difficulty Options")) {
+            if (UIWidgets::CVarCheckbox("Disable Takkuri Steal", "gEnhancements.Cheats.DisableTakkuriSteal",
+                                        { .tooltip = "Prevents the Takkuri from stealing key items like bottles and "
+                                                     "swords. It may still steal other items." })) {
+                RegisterDisableTakkuriSteal();
+            }
             ImGui::EndMenu();
         }
 
@@ -770,6 +803,13 @@ void DrawCheatsMenu() {
                          "- Temples + Mini Dungeons: In addition to the above temples, stops time in both Spider "
                          "Houses, Pirate's Fortress, Beneath the Well, Ancient Castle of Ikana, and Secret Shrine.",
               .defaultIndex = TIME_STOP_OFF });
+        UIWidgets::CVarCheckbox("Elegy of Emptiness Anywhere", "gCheats.ElegyAnywhere",
+                                { .tooltip = "Allows Elegy of Emptiness outside of Ikana" });
+
+        if (UIWidgets::CVarCheckbox("Hookshot Anywhere", "gCheats.HookshotAnywhere",
+                                    { .tooltip = "Allows most surfaces hookshot-able" })) {
+            RegisterHookshotAnywhere();
+        }
 
         ImGui::EndMenu();
     }
